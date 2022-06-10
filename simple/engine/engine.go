@@ -5,6 +5,9 @@ import (
 	"log"
 )
 
+// Run 引擎,相当于调度中心
+// 接收种子sessds,存放到任务队列requests,循环送到fetcher
+// fetch 请求种子指定的资源, 放入解析器parser解析，得到数据
 func Run(sessds ...Request) {
 	var requests []Request
 	for _, r := range sessds {
