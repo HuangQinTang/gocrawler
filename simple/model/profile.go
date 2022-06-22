@@ -49,13 +49,13 @@ type HobbyProfile struct {
 
 // ChooseMate 择偶条件
 type ChooseMate struct {
-	CAge        string //年龄
-	CHeight     string //身高
-	CWorkplace  string //工作地
-	COccupation string //教育
-	CStature    string //身材
-	CSmoking    string //是否吸烟
-	CDrink      string //是否喝酒
-	CChild      string //是否有孩子
-	ClikeChild  string //是否想要孩子
+	AgeMate        string //年龄
+	HeightMate     string //身高
+	WorkplaceMate  string //工作地
+	OccupationMate string //教育
+	StatureMate    string //身材
+	SmokingMate    string //是否吸烟
+	DrinkMate      string //是否喝酒
+	ChildMate      string //是否有孩子
+	likeChildMate  string //是否想要孩子
 }
