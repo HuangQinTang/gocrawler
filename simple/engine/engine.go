@@ -23,6 +23,7 @@ func Run(sessds ...Request) {
 			log.Printf("Fetcher: error fetching url %s: %v", r.Url, err)
 			continue
 		}
+
 		parseResult := r.ParserFunc(body)
 		requests = append(requests, parseResult.Requests...)
 

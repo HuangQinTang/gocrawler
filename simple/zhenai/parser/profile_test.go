@@ -11,5 +11,5 @@ func TestParseProfile(t *testing.T) {
 		panic(err)
 	}
 
-	ParseProfile(contents)
+	ParseProfile(contents, "https://album.zhenai.com/u/1693313153", "非诚勿扰", "男士")
 }

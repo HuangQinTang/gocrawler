@@ -1,7 +1,7 @@
 package model
 
 type Profile struct {
-	Id           int
+	Url          string
 	NickName     string //昵称
 	Gender       string //性别
 	Sign         string //内心独白
@@ -49,13 +49,28 @@ type HobbyProfile struct {
 
 // ChooseMate 择偶条件
 type ChooseMate struct {
-	AgeMate        string //年龄
-	HeightMate     string //身高
-	WorkplaceMate  string //工作地
-	OccupationMate string //教育
-	StatureMate    string //身材
-	SmokingMate    string //是否吸烟
-	DrinkMate      string //是否喝酒
-	ChildMate      string //是否有孩子
-	likeChildMate  string //是否想要孩子
+	AgeMate       string //年龄
+	HeightMate    string //身高
+	WorkplaceMate string //工作地
+	IncomeMate    string //月薪
+	EducationMate string //教育
+	StatureMate   string //身材
+	SmokingMate   string //是否吸烟
+	DrinkMate     string //是否喝酒
+	ChildMate     string //是否有孩子
+	LikeChildMate string //是否想要孩子
+}
+
+// SimpleInfo 简单人物信息
+type SimpleInfo struct {
+	Url           string //个人信息url
+	Nickname      string //昵称
+	Gender        string //性别
+	Place         string //居住地
+	Age           int    //年龄
+	Income        string //收入（男性能抓到）
+	EducationMate string //教育（女性能抓到）
+	Marriage      string //婚姻状况
+	Height        int    //身高
+	Introduce     string //收入
 }
