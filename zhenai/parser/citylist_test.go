@@ -11,10 +11,10 @@ func TestParseCityList(t *testing.T) {
 		panic(err)
 	}
 
-	result := ParseCityList(contents)
+	const resultSize = 470
+	result := ParseCityList(contents, resultSize)
 
 	//验证城市列表是否470个 2022-06-10
-	const resultSize = 470
 	if len(result.Requests) != resultSize {
 		t.Errorf("result should have %d requests; but had %d", resultSize, len(result.Requests))
 	}

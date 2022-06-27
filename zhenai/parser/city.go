@@ -1,7 +1,7 @@
 package parser
 
 import (
-	"crawler/simple/engine"
+	"crawler/engine"
 	"regexp"
 )
 
