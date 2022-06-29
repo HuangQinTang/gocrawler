@@ -16,8 +16,20 @@ func main() {
 	//})
 
 	//多任务版
-	e := engine.ConcurrentEngine{
-		Scheduler: &scheduler.SimpleScheduler{},
+	//e := engine.ConcurrentEngine{
+	//	Scheduler: &scheduler.SimpleScheduler{},
+	//	WorkerCount: 20,	//任务数
+	//}
+	//e.Run(engine.Request{
+	//	Url: "http://www.zhenai.com/zhenghun",
+	//	ParserFunc: func(contents []byte) engine.ParseResult {
+	//		return parser.ParseCityList(contents, 200) //爬取200个城市
+	//	},
+	//})
+
+	//队列版
+	e := engine.QueueEngine{
+		Scheduler: &scheduler.QueuedScheduler{},
 		WorkerCount: 20,	//任务数
 	}
 	e.Run(engine.Request{
@@ -26,5 +38,4 @@ func main() {
 			return parser.ParseCityList(contents, 200) //爬取200个城市
 		},
 	})
-
 }
