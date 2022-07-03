@@ -16,10 +16,13 @@ const womanProfile = `<a href="(http://album.zhenai.com/u/[0-9]+)" target="_blan
 //下一页
 const cityListReNextPage = `<a href="(http://www.zhenai.com/zhenghun/[a-z]+/[2-6]+)">下一页</a>`
 
+const userIdRe = `[0-9]+`
+
 var (
 	manMatches      = regexp.MustCompile(manProfile)
 	womanMatches    = regexp.MustCompile(womanProfile)
 	cityListMatches = regexp.MustCompile(cityListReNextPage)
+	userIdMatche    = regexp.MustCompile(userIdRe)
 )
 
 // ParseSimpleInfo 简单信息解析器
@@ -31,8 +34,11 @@ func ParseSimpleInfo(contents []byte) engine.ParseResult {
 	for _, val := range men {
 		age, _ := strconv.Atoi(string(val[4]))
 		height, _ := strconv.Atoi(string(val[7]))
+		url := string(val[1])
 		result.Items = append(result.Items, model.SimpleInfo{
-			Url:       string(val[1]),
+			Id:        parseUserId(userIdMatche, url),
+			Gender:    "男士",
+			Url:       url,
 			Nickname:  string(val[2]),
 			Place:     string(val[3]),
 			Age:       age,
@@ -48,7 +54,10 @@ func ParseSimpleInfo(contents []byte) engine.ParseResult {
 	for _, val := range women {
 		age, _ := strconv.Atoi(string(val[4]))
 		height, _ := strconv.Atoi(string(val[7]))
+		url := string(val[1])
 		result.Items = append(result.Items, model.SimpleInfo{
+			Id:            parseUserId(userIdMatche, url),
+			Gender:        "女士",
 			Url:           string(val[1]),
 			Nickname:      string(val[2]),
 			Place:         string(val[3]),
@@ -70,4 +79,13 @@ func ParseSimpleInfo(contents []byte) engine.ParseResult {
 	}
 
 	return result
+}
+
+func parseUserId(matche *regexp.Regexp, url string) int {
+	result := matche.FindSubmatch([]byte(url))
+	userId, err := strconv.Atoi(string(result[0]))
+	if err != nil {
+		return 0
+	}
+	return userId
 }

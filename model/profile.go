@@ -63,6 +63,7 @@ type ChooseMate struct {
 
 // SimpleInfo 简单人物信息
 type SimpleInfo struct {
+	Id            int    //珍爱网用户id
 	Url           string //个人信息url
 	Nickname      string //昵称
 	Gender        string //性别
@@ -72,5 +73,5 @@ type SimpleInfo struct {
 	EducationMate string //教育（女性能抓到）
 	Marriage      string //婚姻状况
 	Height        int    //身高
-	Introduce     string //收入
+	Introduce     string //自我介绍
 }
