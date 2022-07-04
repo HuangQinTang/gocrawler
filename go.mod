@@ -8,6 +8,7 @@ require (
 )
 
 require (
+	github.com/garyburd/redigo v1.6.3 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/olivere/elastic/v7 v7.0.32 // indirect

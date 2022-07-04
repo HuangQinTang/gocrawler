@@ -62,6 +62,7 @@ func createWorker(in chan Request, out chan ParseResult, ready ReadyNotifier) {
 
 			//任务分发到我(当前工作管道)头上时处理
 			request := <-in
+
 			result, err := worker(request)
 			if err != nil {
 				continue
