@@ -9,6 +9,13 @@ import (
 )
 
 func TestSave(t *testing.T) {
+	client, err := elastic.NewClient(
+		//es服务不是跑在本地的，swtSniff=false, 不维护集群状态
+		elastic.SetSniff(false))
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+
 	examples := model.SimpleInfo{
 		Url:           "http://album.zhenai.com/u/1968078839",
 		Nickname:      "山水有相逢",
@@ -22,19 +29,12 @@ func TestSave(t *testing.T) {
 		Introduce:     "本人是一个打工人生于1987年，普普通通的农民家庭",
 	}
 
-	id, err := save(examples)
+	id, err := Save(client, model.Zhenai, examples)
 	if err != nil {
 		t.Errorf(err.Error())
 	}
 
-	client, err := elastic.NewClient(
-		//es服务不是跑在本地的，swtSniff=false, 不维护集群状态
-		elastic.SetSniff(false))
-	if err != nil {
-		t.Errorf(err.Error())
-	}
-
-	data, err := client.Get().Index("zhenai").Id(id).Do(context.Background())
+	data, err := client.Get().Index(model.Zhenai).Id(id).Do(context.Background())
 	if err != nil {
 		t.Errorf(err.Error())
 	}

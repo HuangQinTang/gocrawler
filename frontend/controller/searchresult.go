@@ -48,7 +48,7 @@ func (h SearchResultHandler) getSearchResult(q string, from int) (model.SearchRe
 	var result model.SearchResult
 	result.Query = q
 
-	client := h.client.Search("zhenai")
+	client := h.client.Search(common.Zhenai)
 	if q != "" {
 		client.Query(elastic.NewQueryStringQuery(q))
 	}

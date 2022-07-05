@@ -9,7 +9,7 @@ import (
 	"log"
 )
 
-func ItemSeaver(client *elastic.Client) chan interface{} {
+func SimpleInfoSeaver(client *elastic.Client) chan interface{} {
 	out := make(chan interface{})
 	go func() {
 		itemCount := 0
@@ -29,12 +29,12 @@ func ItemSeaver(client *elastic.Client) chan interface{} {
 				continue
 			}
 			if !unique {
-				log.Printf("Item Saver info: 真爱用户【%v】已存在", id)
+				log.Printf("Item Saver info: 用户【%v】已存在", id)
 				continue
 			}
 
 			//保存数据至es
-			if _, err = save(client, userInfo); err != nil {
+			if _, err = Save(client, model.Zhenai, userInfo); err != nil {
 				log.Printf("Item Save fail: 【%v】", err)
 			}
 			log.Printf("Item Saver: got item: #%d：【%v】", itemCount, item)
@@ -44,8 +44,9 @@ func ItemSeaver(client *elastic.Client) chan interface{} {
 	return out
 }
 
-func save(client *elastic.Client, userInfo model.SimpleInfo) (docId string, err error) {
-	resp, err := client.Index().Index("zhenai").BodyJson(userInfo).Do(context.Background())
+// Save 存储简单用户信息
+func Save(client *elastic.Client, index string, userInfo model.SimpleInfo) (docId string, err error) {
+	resp, err := client.Index().Index(index).Id(fmt.Sprintf("%d", userInfo.Id)).BodyJson(userInfo).Do(context.Background())
 	if err != nil {
 		return "", err
 	}

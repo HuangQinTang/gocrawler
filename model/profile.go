@@ -1,5 +1,7 @@
 package model
 
+const Zhenai = "zhenai"
+
 type Profile struct {
 	Url          string
 	NickName     string //昵称
@@ -63,7 +65,7 @@ type ChooseMate struct {
 
 // SimpleInfo 简单人物信息
 type SimpleInfo struct {
-	Id            int    //珍爱网用户id
+	Id            int    //用户id
 	Url           string //个人信息url
 	Nickname      string //昵称
 	Gender        string //性别
