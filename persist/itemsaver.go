@@ -34,7 +34,7 @@ func ItemSeaver(client *elastic.Client) chan interface{} {
 			}
 
 			//保存数据至es
-			if _, err := save(client, userInfo); err != nil {
+			if _, err = save(client, userInfo); err != nil {
 				log.Printf("Item Save fail: 【%v】", err)
 			}
 			log.Printf("Item Saver: got item: #%d：【%v】", itemCount, item)

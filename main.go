@@ -46,7 +46,7 @@ func main() {
 	e.Run(engine.Request{
 		Url: "http://www.zhenai.com/zhenghun",
 		ParserFunc: func(contents []byte) engine.ParseResult {
-			return parser.ParseCityList(contents, 1)
+			return parser.ParseCityList(contents, 470)
 		},
 	})
 }
