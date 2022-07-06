@@ -16,12 +16,10 @@ func main() {
 		panic(err)
 	}
 
-	//简单版本(近打印拉取信息)
+	//简单版本(仅打印拉取信息)
 	//engine.SimpleEngine{}.Run(engine.Request{
 	//	Url: "http://www.zhenai.com/zhenghun",
-	//	ParserFunc: func(contents []byte) engine.ParseResult {
-	//		return parser.ParseCityList(contents, 200) //爬取200个城市
-	//	},
+	//	Parser: parser.NewParseCityList(10),
 	//})
 
 	//并发版
@@ -32,9 +30,7 @@ func main() {
 	//}
 	//e.Run(engine.Request{
 	//	Url: "http://www.zhenai.com/zhenghun",
-	//	ParserFunc: func(contents []byte) engine.ParseResult {
-	//		return parser.ParseCityList(contents, 200) //爬取200个城市
-	//	},
+	//	Parser: parser.NewParseCityList(10),
 	//})
 
 	//队列版
@@ -44,9 +40,7 @@ func main() {
 		ItemChan:    persist.SimpleInfoSeaver(client), //处理响应结果的管道
 	}
 	e.Run(engine.Request{
-		Url: "http://www.zhenai.com/zhenghun",
-		ParserFunc: func(contents []byte) engine.ParseResult {
-			return parser.ParseCityList(contents, 470)
-		},
+		Url:    "http://www.zhenai.com/zhenghun",
+		Parser: parser.NewParseCityList(10),
 	})
 }

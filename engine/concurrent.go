@@ -1,10 +1,12 @@
 package engine
 
+import "crawler/model"
+
 // ConcurrentEngine 并发版引擎
 type ConcurrentEngine struct {
 	Scheduler   Scheduler //调度器
 	WorkerCount int       //同时进行的任务数(干活的工人数）
-	ItemChan    chan interface{}
+	ItemChan    chan model.SimpleInfo
 }
 
 // Scheduler 调度器

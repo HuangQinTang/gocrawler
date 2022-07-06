@@ -74,7 +74,7 @@ func ParseProfile(contents []byte, url, nickname, gender string) engine.ParseRes
 	//fmt.Println("---成功抓取---")
 	//fmt.Printf("%#v", profile)
 	return engine.ParseResult{
-		Items:    []interface{}{profile},
+		//Items:    []interface{}{profile},
 		Requests: []engine.Request{},
 	}
 }

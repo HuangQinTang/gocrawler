@@ -16,12 +16,12 @@ func ParseCity(contents []byte) engine.ParseResult {
 		url := string(m[1])
 		nickname := string(m[2])
 		gender := string(m[3])
-		result.Items = append(result.Items, string(m[2]))
+		//result.Items = append(result.Items, string(m[2]))
 		result.Requests = append(result.Requests, engine.Request{
 			Url: string(m[1]),
-			ParserFunc: func(bytes []byte) engine.ParseResult {
+			Parser: engine.NewFuncParser(func(bytes []byte) engine.ParseResult {
 				return ParseProfile(contents, url, nickname, gender)
-			},
+			}, "ParseProfile"),
 		})
 	}
 	return result

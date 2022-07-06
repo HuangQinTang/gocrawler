@@ -12,18 +12,14 @@ func TestParseCityList(t *testing.T) {
 	}
 
 	const resultSize = 470
-	result := ParseCityList(contents, resultSize)
+	result := parseCityList(contents, resultSize)
 
 	//验证城市列表是否470个 2022-06-10
 	if len(result.Requests) != resultSize {
 		t.Errorf("result should have %d requests; but had %d", resultSize, len(result.Requests))
 	}
-	if len(result.Items) != resultSize {
-		t.Errorf("result should have %d Items; but had %d", resultSize, len(result.Items))
-	}
 
 	expectedUrl := []string{"http://www.zhenai.com/zhenghun/aba", "http://www.zhenai.com/zhenghun/akesu", "http://www.zhenai.com/zhenghun/alashanmeng"}
-	expectedCities := []string{"阿坝", "阿克苏", "阿拉善盟"}
 
 	//遍历前三个url和city，判断与预期值是否相等 2022-06-14
 	for i, url := range expectedUrl {
@@ -31,9 +27,9 @@ func TestParseCityList(t *testing.T) {
 			t.Errorf("expected url #%d: %s; but was %s", i, url, result.Requests[i].Url)
 		}
 	}
-	for i, city := range expectedCities {
-		if result.Items[i].(string) != "City "+city {
-			t.Errorf("expected city #%d: %s; but was %s", i, city, result.Items[i].(string))
+	for i, Url := range expectedUrl {
+		if result.Requests[i].Url != Url {
+			t.Errorf("expected url %s; but was %s", Url, result.Requests[i].Url)
 		}
 	}
 }

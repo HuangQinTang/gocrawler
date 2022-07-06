@@ -73,8 +73,8 @@ func ParseSimpleInfo(contents []byte) engine.ParseResult {
 	pageNext := cityListMatches.FindSubmatch(contents)
 	if len(pageNext) >= 2 {
 		result.Requests = append(result.Requests, engine.Request{
-			Url:        string(pageNext[1]),
-			ParserFunc: ParseSimpleInfo,
+			Url:    string(pageNext[1]),
+			Parser: engine.NewFuncParser(ParseSimpleInfo, "ParseSimpleInfo"),
 		})
 	}
 

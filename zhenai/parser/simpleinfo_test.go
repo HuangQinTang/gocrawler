@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"crawler/model"
 	"fmt"
 	"io/ioutil"
 	"testing"
@@ -17,11 +16,7 @@ func TestParseSimpleInfo(t *testing.T) {
 	if len(result.Items) < 1 {
 		t.Errorf("解析失败")
 	}
-	for _, v := range result.Items {
-		info, ok := v.(model.SimpleInfo)
-		if !ok {
-			t.Errorf("解析失败")
-		}
+	for _, info := range result.Items {
 		if info.Id != 1396738538 {
 			t.Errorf("数据解析不正确")
 		}

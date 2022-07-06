@@ -1,15 +1,19 @@
-package persist
+package client
 
 import (
-	"context"
+	"crawler/distributed/config"
+	"crawler/distributed/rpcsupport"
 	"crawler/model"
 	"crawler/rediservice"
 	"fmt"
-	"github.com/olivere/elastic/v7"
 	"log"
 )
 
-func SimpleInfoSeaver(client *elastic.Client) chan model.SimpleInfo {
+func ItemSeaver(host string) (chan model.SimpleInfo, error) {
+	client, err := rpcsupport.NewClient(host)
+	if err != nil {
+		return nil, err
+	}
 	out := make(chan model.SimpleInfo)
 	go func() {
 		itemCount := 0
@@ -28,23 +32,15 @@ func SimpleInfoSeaver(client *elastic.Client) chan model.SimpleInfo {
 				continue
 			}
 
-			//保存数据至es
-			if _, err = Save(client, model.Zhenai, item); err != nil {
+			result := ""
+			err = client.Call(config.ItemSaverRpc, item, &result)
+			if err != nil {
 				log.Printf("Item Save fail: 【%v】", err)
+				continue
 			}
 			log.Printf("Item Saver: got item: #%d：【%v】", itemCount, item)
 			itemCount++
 		}
 	}()
-	return out
-}
-
-// Save 存储简单用户信息
-func Save(client *elastic.Client, index string, userInfo model.SimpleInfo) (docId string, err error) {
-	resp, err := client.Index().Index(index).Id(fmt.Sprintf("%d", userInfo.Id)).BodyJson(userInfo).Do(context.Background())
-	if err != nil {
-		return "", err
-	}
-
-	return resp.Id, nil
+	return out, nil
 }
