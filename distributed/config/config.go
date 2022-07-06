@@ -5,8 +5,13 @@ const (
 	ItemSaverPort = 8889
 
 	// ElasticSearch
-	Zhenai        = "zhenai"
+	Zhenai = "zhenai"
 
 	// RPC Endpoints
-	ItemSaverRpc  = "ItemSaverService.Save"
+	ItemSaverRpc = "ItemSaverService.Save"
+
+	// Parser names
+	ParseCityList   = "ParseCityList"
+	ParseSimpleInfo = "ParseSimpleInfo"
+	NilParser       = "NilParser"
 )

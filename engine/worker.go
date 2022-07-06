@@ -5,8 +5,8 @@ import (
 	"log"
 )
 
-// worker 拉取网页数据并解析
-func worker(r Request) (ParseResult, error) {
+// Worker 拉取网页数据并解析
+func Worker(r Request) (ParseResult, error) {
 	//判断是否已拉取过
 	//unique, err := rediservice.RedisServer.ZhenaiDuplicate(r.Url)
 	//if err != nil {

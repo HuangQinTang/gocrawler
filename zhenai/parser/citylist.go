@@ -32,19 +32,20 @@ func parseCityList(contents []byte, num int) engine.ParseResult {
 }
 
 type ParseCityList struct {
-	parseCityNum int
+	ParseCityNum int
 }
 
 func (p *ParseCityList) Parse(contents []byte) engine.ParseResult {
-	return parseCityList(contents, p.parseCityNum)
+	return parseCityList(contents, p.ParseCityNum)
 }
 
 func (p *ParseCityList) Serialize() (name string, args interface{}) {
-	return "ParseCityList", p.parseCityNum
+	return "ParseCityList", p.ParseCityNum
 }
 
+// NewParseCityList 城市列表解析器工场，传入要拉取的城市数
 func NewParseCityList(parseCityNum int) *ParseCityList {
 	return &ParseCityList{
-		parseCityNum: parseCityNum,
+		ParseCityNum: parseCityNum,
 	}
 }
