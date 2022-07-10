@@ -1,13 +1,19 @@
 package engine
 
-import "crawler/model"
+import (
+	"crawler/model"
+)
 
 // ConcurrentEngine 并发版引擎
 type ConcurrentEngine struct {
-	Scheduler   Scheduler //调度器
-	WorkerCount int       //同时进行的任务数(干活的工人数）
-	ItemChan    chan model.SimpleInfo
+	Scheduler        Scheduler //调度器
+	WorkerCount      int       //同时进行的任务数(干活的工人数）
+	ItemChan         chan model.SimpleInfo
+	RequestProcessor Processor
 }
+
+//
+type Processor func(r Request) (ParseResult, error)
 
 // Scheduler 调度器
 type Scheduler interface {
@@ -32,7 +38,7 @@ func (e *ConcurrentEngine) Run(seeds ...Request) {
 
 	//根据设置的任务数启动对应工作协程(创建workerCount个工作管道)
 	for i := 0; i < e.WorkerCount; i++ {
-		createWorker(e.Scheduler.WorkerChan(), out, e.Scheduler)
+		e.createWorker(e.Scheduler.WorkerChan(), out, e.Scheduler)
 	}
 
 	//把要干的活提交到任务管道
@@ -56,7 +62,7 @@ func (e *ConcurrentEngine) Run(seeds ...Request) {
 }
 
 // createWorker 创建工作goroute
-func createWorker(in chan Request, out chan ParseResult, ready ReadyNotifier) {
+func (e *ConcurrentEngine) createWorker(in chan Request, out chan ParseResult, ready ReadyNotifier) {
 	go func() {
 		for {
 			//把当前工作管道放入调度器，等待分发任务
@@ -65,7 +71,7 @@ func createWorker(in chan Request, out chan ParseResult, ready ReadyNotifier) {
 			//任务分发到我(当前工作管道)头上时处理
 			request := <-in
 
-			result, err := Worker(request)
+			result, err := e.RequestProcessor(request)
 			if err != nil {
 				continue
 			}

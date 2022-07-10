@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"crawler/distributed/config"
 	"crawler/engine"
 	"crawler/model"
 	"regexp"
@@ -74,7 +75,7 @@ func ParseSimpleInfo(contents []byte) engine.ParseResult {
 	if len(pageNext) >= 2 {
 		result.Requests = append(result.Requests, engine.Request{
 			Url:    string(pageNext[1]),
-			Parser: engine.NewFuncParser(ParseSimpleInfo, "ParseSimpleInfo"),
+			Parser: engine.NewFuncParser(ParseSimpleInfo, config.ParseSimpleInfo),
 		})
 	}
 

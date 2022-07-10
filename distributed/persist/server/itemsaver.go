@@ -9,6 +9,7 @@ import (
 	"log"
 )
 
+// 存储服务
 func main() {
 	log.Fatal(serverRpc(fmt.Sprintf(":%d", config.ItemSaverPort), config.Zhenai))
 }
@@ -20,5 +21,6 @@ func serverRpc(host string, esIndex string) error {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("itemsaver start", host)
 	return rpcsupport.ServerRpc(host, &persist.ItemSaverService{Client: client, EsIndex: esIndex})
 }

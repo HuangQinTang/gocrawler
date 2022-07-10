@@ -23,24 +23,26 @@ func main() {
 	//})
 
 	//并发版
-	//e := engine.ConcurrentEngine{
-	//	Scheduler: &scheduler.SimpleScheduler{},
-	//	WorkerCount: 20,	//任务数
-	//	ItemChan: persist.SimpleInfoSeaver(client),
-	//}
-	//e.Run(engine.Request{
-	//	Url: "http://www.zhenai.com/zhenghun",
-	//	Parser: parser.NewParseCityList(10),
-	//})
-
-	//队列版
 	e := engine.ConcurrentEngine{
-		Scheduler:   &scheduler.QueuedScheduler{},
-		WorkerCount: 1,                                //任务数
-		ItemChan:    persist.SimpleInfoSeaver(client), //处理响应结果的管道
+		Scheduler: &scheduler.SimpleScheduler{},
+		WorkerCount: 2,	//任务数
+		ItemChan: persist.SimpleInfoSeaver(client),
+		RequestProcessor: engine.Worker,
 	}
 	e.Run(engine.Request{
-		Url:    "http://www.zhenai.com/zhenghun",
-		Parser: parser.NewParseCityList(10),
+		Url: "http://www.zhenai.com/zhenghun",
+		Parser: parser.NewParseCityList(1),
 	})
+
+	//队列版
+	//e := engine.ConcurrentEngine{
+	//	Scheduler:   &scheduler.QueuedScheduler{},
+	//	WorkerCount: 1,                                //任务数
+	//	ItemChan:    persist.SimpleInfoSeaver(client), //处理响应结果的管道
+	//	RequestProcessor: engine.Worker,
+	//}
+	//e.Run(engine.Request{
+	//	Url:    "http://www.zhenai.com/zhenghun",
+	//	Parser: parser.NewParseCityList(10),
+	//})
 }

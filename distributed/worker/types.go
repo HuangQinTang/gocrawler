@@ -81,10 +81,10 @@ func DeserializeResult(r ParseResult) engine.ParseResult {
 func deserializeParser(p SerializedParser) (engine.Parser, error) {
 	switch p.Name {
 	case config.ParseCityList:
-		if parseCityNum, ok := p.Args.(int); ok {
-			return parser.NewParseCityList(parseCityNum), nil
+		if parseCityNum, ok := p.Args.(float64); ok {	//不晓得为什么传int会变为float64
+			return parser.NewParseCityList(int(parseCityNum)), nil
 		} else {
-			return nil, fmt.Errorf("invalid arg: %v", p.Args)
+			return nil, fmt.Errorf("invalid arg: %v, required int type", p.Args)
 		}
 	case config.ParseSimpleInfo:
 		return engine.NewFuncParser(parser.ParseSimpleInfo, config.ParseSimpleInfo), nil
@@ -94,9 +94,3 @@ func deserializeParser(p SerializedParser) (engine.Parser, error) {
 		return nil, errors.New("unknown parser name")
 	}
 }
-
-//type CrawlService struct{}
-//
-//func (CrawlService) Process(req engine.Request, result *engine.ParseResult) error {
-//
-//}
