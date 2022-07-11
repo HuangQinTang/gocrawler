@@ -16,4 +16,7 @@ const (
 	ParseCityList   = "ParseCityList"
 	ParseSimpleInfo = "ParseSimpleInfo"
 	NilParser       = "NilParser"
+
+	//Fetch Qps
+	Qps = 10
 )

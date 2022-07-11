@@ -1,16 +1,21 @@
 package main
 
 import (
-	"crawler/distributed/config"
 	"crawler/distributed/rpcsupport"
 	"crawler/distributed/worker"
+	"flag"
 	"fmt"
 	"log"
 )
 
+var port = flag.Int("port", 0, "the port for me to listen on")
+
 // 爬取服务
 func main() {
-	host := fmt.Sprintf(":%d", config.WorkerPort0)
-	fmt.Println( "worker start"+host)
-	log.Fatal(rpcsupport.ServerRpc(host, worker.CrawlService{}))
+	flag.Parse()
+	if *port == 0 {
+		fmt.Println("must specify a port")
+		return
+	}
+	log.Fatal(rpcsupport.ServerRpc(fmt.Sprintf(":%d", *port), worker.CrawlService{}))
 }

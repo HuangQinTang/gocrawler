@@ -1,7 +1,7 @@
 package view
 
 import (
-	"crawler/frontend/model"
+	"crawler/web/model"
 	common "crawler/model"
 	"os"
 	"testing"

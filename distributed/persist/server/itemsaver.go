@@ -4,14 +4,22 @@ import (
 	"crawler/distributed/config"
 	"crawler/distributed/persist"
 	"crawler/distributed/rpcsupport"
+	"flag"
 	"fmt"
 	"github.com/olivere/elastic/v7"
 	"log"
 )
 
+var port = flag.Int("port", 0, "the port for me to listen on")
+
 // 存储服务
 func main() {
-	log.Fatal(serverRpc(fmt.Sprintf(":%d", config.ItemSaverPort), config.Zhenai))
+	flag.Parse()
+	if *port == 0 {
+		fmt.Println("must specify a port")
+		return
+	}
+	log.Fatal(serverRpc(fmt.Sprintf(":%d", *port), config.Zhenai))
 }
 
 // serverRpc 启动itemsaver服务

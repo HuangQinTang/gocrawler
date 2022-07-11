@@ -2,9 +2,9 @@ package controller
 
 import (
 	"context"
-	"crawler/frontend/model"
-	"crawler/frontend/view"
 	common "crawler/model"
+	"crawler/web/model"
+	"crawler/web/view"
 	"github.com/olivere/elastic/v7"
 	"net/http"
 	"reflect"

@@ -2,6 +2,7 @@ package fetcher
 
 import (
 	"bufio"
+	"crawler/distributed/config"
 	"fmt"
 	"golang.org/x/net/html/charset"
 	"golang.org/x/text/encoding"
@@ -14,7 +15,7 @@ import (
 )
 
 //var cookie = "FSSBBIl1UgzbN7NO=5fHorTb66sf5JfnG1FCKu1fSQmSg1S2eQL2WiCfcH4oSwyuFuLPEm2TGn9SSpg37z2e4LKxTJelLUX3gZVw.jjG; FSSBBIl1UgzbN7NP=53.Jiabtus.LqqqDrODCFcqxDgiFSCV_N2cMSunsfOkX2Fvk2hapijIcrNoYLhZoLJa0wF0BB4fWkc6.n.Y8w75mlChAZUJNz1.N18sD9u03qq3U66UYV7f7rF4N7HvttltUOiZNm3DTMP6i5X3ERolAVWwVnYd4lXc.Fk8NtiqjJDHnges3d7fn3KP0RV11P54B.kL8uZzY4iTWIQrRRE.2nmAZRmlT1e9YEIfoFJ6a5PqGz_pooSTOgRl6ricpu4BxhJjuis1g2glZ_d_iULOjpISnXHOo5Zn4EpTFQGHq_qsx5Hgal.mluVK4l_SGm0; sid=1f657ef5-a307-48ba-af57-a83290bf3b03; Hm_lvt_2c8ad67df9e787ad29dbd54ee608f5d2=1655916224; Hm_lpvt_2c8ad67df9e787ad29dbd54ee608f5d2=1655918267; _exid=vNulRNaNn88Mtb63xyqFvDQiiUP%2B8cIgjBUvCFEGJiUidRDy0qG%2BR56vBDKT2pYpLjbHLe0xwzb2yPX1sE8E4Q%3D%3D; ec=oDVvmNMI-1655916225536-e1b6fcb633c89365862116; _efmdata=NHzEJ0JS%2FeiANl7aLUwTQZI6lH8BVaisxFD0ri6VN1wAROtDFJKCFXZO7cC7%2FzBihJbsw5Yk0ylWx%2FtPImgGzZtY7PKHpSvAtqfsFUAGOSA%3D"
-var rateLimiter = time.Tick(100 * time.Millisecond)
+var rateLimiter = time.Tick(time.Second / config.Qps)
 
 // Fetch 拉取网页url内容
 // 返回[]byte数据
